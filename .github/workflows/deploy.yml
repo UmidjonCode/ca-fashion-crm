@@ -1,4 +1,4 @@
-# ── CA Fashion CRM — CI/CD Pipeline ──────────────────────────────────────────
+# CA Fashion CRM - CI/CD Pipeline
 # Triggered on push to main:
 #   1. Build & test the Next.js app
 #   2. Build Docker image & push to AWS ECR
@@ -27,7 +27,7 @@ env:
   CONTAINER_NAME: ca-fashion-app
 
 jobs:
-  # ─── Job 1: Build & Test ───────────────────────────────────────────────────
+  # Job 1: Build & Test
   test:
     name: Build & Test
     runs-on: ubuntu-latest
@@ -47,7 +47,7 @@ jobs:
       - name: Build Next.js
         run: npm run build
 
-  # ─── Job 2: Build Docker Image & Push to ECR ──────────────────────────────
+  # Job 2: Build Docker Image & Push to ECR
   build-and-push:
     name: Build & Push Docker Image
     runs-on: ubuntu-latest
@@ -85,7 +85,7 @@ jobs:
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
           echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
 
-  # ─── Job 3: Deploy to ECS Fargate ─────────────────────────────────────────
+  # Job 3: Deploy to ECS Fargate
   deploy:
     name: Deploy to ECS
     runs-on: ubuntu-latest
