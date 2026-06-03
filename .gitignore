@@ -1,0 +1,24 @@
+# dependencies
+/node_modules
+
+# next.js
+/.next
+/out
+
+# environment (secrets — never commit)
+.env
+.env.local
+.env.production
+.env.*.local
+
+# misc
+.DS_Store
+npm-debug.log*
+Thumbs.db
+
+# docker
+docker-compose.override.yml
+
+# AI agent config
+.claude/
+.gemini/

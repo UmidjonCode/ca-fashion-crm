@@ -1,0 +1,5 @@
+# Keep shell scripts as LF so they run on the Linux EC2 host even when
+# committed from Windows (CRLF in a #! script breaks on Linux).
+*.sh text eol=lf
+deploy/atlas-crm.service text eol=lf
+deploy/nginx.conf text eol=lf

@@ -1,0 +1,39 @@
+# CA Fashion CRM — Local Development Stack
+# Usage: docker compose up  →  app on http://localhost:3000
+
+services:
+  # ── PostgreSQL Database ──────────────────────────────────────────────────────
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: cafashion
+      POSTGRES_PASSWORD: localdev123
+      POSTGRES_DB: cafashion_crm
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U cafashion -d cafashion_crm"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  # ── Next.js Application ──────────────────────────────────────────────────────
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: postgresql://cafashion:localdev123@db:5432/cafashion_crm
+      NODE_ENV: production
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  pgdata:

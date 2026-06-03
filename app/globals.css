@@ -1,0 +1,128 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-base: #0f0f12;
+  --bg-card: #1a1a23;
+  --bg-card-hover: #1f1f2a;
+  --border-subtle: #2a2a35;
+  --border-focus: #2dd4bf;
+  --accent-teal: #2dd4bf;
+  --accent-rose: #fb7185;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  @apply bg-[#0f0f12] text-zinc-300 antialiased;
+}
+
+@layer components {
+  /* ── Nexus Card ── */
+  .nexus-card {
+    @apply relative overflow-hidden rounded-xl border border-[#2a2a35] bg-[#1a1a23] shadow-card;
+  }
+  .nexus-card::before {
+    content: '';
+    @apply pointer-events-none absolute inset-y-0 left-0 w-[3px] rounded-l-xl bg-teal-400 opacity-0 transition-opacity duration-200;
+  }
+  .nexus-card:hover::before {
+    @apply opacity-100;
+  }
+
+  /* ── Nexus Input ── */
+  .nexus-input {
+    @apply w-full rounded-lg border border-[#2a2a35] bg-[#15151d] px-3.5 py-2.5 text-sm text-zinc-200
+      placeholder:text-zinc-600
+      focus:border-teal-500/50 focus:outline-none focus:ring-2 focus:ring-teal-500/20
+      transition-all duration-200;
+  }
+
+  /* ── Primary button (Teal) ── */
+  .btn-primary {
+    @apply inline-flex items-center gap-2 rounded-lg bg-teal-500 
+      px-4 py-2.5 text-sm font-semibold text-charcoal shadow-lg shadow-teal-500/20
+      transition-all duration-200 
+      hover:bg-teal-400 hover:shadow-xl hover:shadow-teal-500/30
+      active:scale-[0.97];
+  }
+
+  /* ── Ghost / secondary button ── */
+  .btn-ghost {
+    @apply rounded-lg border border-[#2a2a35] px-4 py-2.5 text-sm font-medium text-zinc-400 
+      transition-all duration-200 hover:border-zinc-500 hover:bg-[#22222d] hover:text-zinc-200;
+  }
+
+  /* ── Danger button (Rose) ── */
+  .btn-danger {
+    @apply rounded-lg bg-rose-500 px-4 py-2.5 text-sm font-semibold text-white 
+      shadow-lg shadow-rose-500/20 transition-all duration-200
+      hover:bg-rose-400 hover:shadow-xl hover:shadow-rose-500/30
+      disabled:opacity-60;
+  }
+
+  /* ── Segmented Tab Bar ── */
+  .tab-bar {
+    @apply inline-flex rounded-lg border border-[#2a2a35] bg-[#15151d] p-1;
+  }
+  .tab-item {
+    @apply rounded-md px-3.5 py-1.5 text-xs font-semibold capitalize transition-all duration-200;
+  }
+  .tab-active {
+    @apply bg-teal-500 text-charcoal shadow-sm;
+  }
+  .tab-inactive {
+    @apply text-zinc-500 hover:text-zinc-300;
+  }
+
+  /* ── Card Row (table row replacement) ── */
+  .card-row {
+    @apply relative transition-all duration-150 hover:bg-[#1f1f2a];
+  }
+  .card-row::after {
+    content: '';
+    @apply absolute bottom-0 inset-x-4 h-px bg-[#2a2a35];
+  }
+  .card-row:last-child::after {
+    @apply hidden;
+  }
+
+  /* ── Loading dots ── */
+  .loading-dots {
+    @apply inline-flex items-center gap-1;
+  }
+  .loading-dots > span {
+    @apply h-2 w-2 rounded-full bg-teal-400 animate-bounce-dots;
+  }
+  .loading-dots > span:nth-child(2) {
+    animation-delay: 0.16s;
+  }
+  .loading-dots > span:nth-child(3) {
+    animation-delay: 0.32s;
+  }
+}
+
+/* ── Scrollbar ── */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(45, 212, 191, 0.25) transparent;
+}
+*::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+*::-webkit-scrollbar-thumb {
+  background: rgba(45, 212, 191, 0.2);
+  border-radius: 9999px;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: rgba(45, 212, 191, 0.4);
+}
