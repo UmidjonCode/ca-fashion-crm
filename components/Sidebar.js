@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   LayoutDashboard,
@@ -13,6 +13,7 @@ import {
   Menu,
   X,
   ChevronRight,
+  LogOut,
 } from 'lucide-react';
 
 const navItems = [
@@ -34,7 +35,7 @@ function getCurrentPageName(pathname) {
 }
 
 /* ─── Icon Rail (Desktop) ─── */
-function IconRail({ pathname }) {
+function IconRail({ pathname, handleLogout }) {
   return (
     <aside className="fixed inset-y-0 left-0 z-50 hidden w-[72px] flex-col items-center border-r border-[#2a2a35] bg-[#111116] md:flex">
       {/* Brand icon */}
@@ -88,6 +89,16 @@ function IconRail({ pathname }) {
 
       {/* Bottom user avatar */}
       <div className="mt-auto mb-4 flex flex-col items-center gap-3">
+        <button
+          onClick={handleLogout}
+          className="group relative flex h-11 w-11 items-center justify-center rounded-xl transition-all duration-200 hover:bg-[#22222d] text-zinc-500 hover:text-red-400"
+          aria-label="Logout"
+        >
+          <LogOut className="h-[20px] w-[20px]" />
+          <span className="pointer-events-none absolute left-full ml-3 rounded-md bg-[#22222d] border border-[#2a2a35] px-2.5 py-1 text-xs font-medium text-zinc-300 opacity-0 shadow-lg transition-opacity group-hover:opacity-100 whitespace-nowrap">
+            Chiqish
+          </span>
+        </button>
         <div className="relative">
           <div className="grid h-9 w-9 place-items-center rounded-full bg-gradient-to-br from-teal-500 to-emerald-500 text-xs font-bold text-charcoal">
             ST
@@ -145,7 +156,7 @@ function TopBar({ pathname, onOpenMobile }) {
 }
 
 /* ─── Mobile Drawer ─── */
-function MobileDrawer({ open, onClose, pathname }) {
+function MobileDrawer({ open, onClose, pathname, handleLogout }) {
   return (
     <AnimatePresence>
       {open && (
@@ -214,8 +225,8 @@ function MobileDrawer({ open, onClose, pathname }) {
 
               {/* Footer */}
               <div className="mt-auto px-4 pb-5">
-                <div className="rounded-lg border border-[#2a2a35] bg-[#15151d] p-3">
-                  <div className="flex items-center gap-3">
+                <div className="flex gap-2 items-center">
+                  <div className="flex-1 flex items-center gap-3 rounded-lg border border-[#2a2a35] bg-[#15151d] p-3">
                     <div className="relative">
                       <div className="grid h-8 w-8 place-items-center rounded-full bg-gradient-to-br from-teal-500 to-emerald-500 text-xs font-bold text-charcoal">
                         ST
@@ -227,6 +238,13 @@ function MobileDrawer({ open, onClose, pathname }) {
                       <p className="text-[11px] text-zinc-600">Online · Admin</p>
                     </div>
                   </div>
+                  <button
+                    onClick={handleLogout}
+                    className="grid h-12 w-12 place-items-center rounded-lg border border-[#2a2a35] bg-[#15151d] text-zinc-500 hover:bg-[#22222d] hover:text-red-400"
+                    aria-label="Logout"
+                  >
+                    <LogOut className="h-5 w-5" />
+                  </button>
                 </div>
               </div>
             </div>
@@ -240,17 +258,26 @@ function MobileDrawer({ open, onClose, pathname }) {
 /* ─── Main Export ─── */
 export default function Sidebar() {
   const pathname = usePathname();
+  const router = useRouter();
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
     setOpen(false);
   }, [pathname]);
 
+  const handleLogout = async () => {
+    await fetch('/api/auth/logout', { method: 'POST' });
+    router.push('/login');
+    router.refresh();
+  };
+
+  if (pathname === '/login') return null;
+
   return (
     <>
-      <IconRail pathname={pathname} />
+      <IconRail pathname={pathname} handleLogout={handleLogout} />
       <TopBar pathname={pathname} onOpenMobile={() => setOpen(true)} />
-      <MobileDrawer open={open} onClose={() => setOpen(false)} pathname={pathname} />
+      <MobileDrawer open={open} onClose={() => setOpen(false)} pathname={pathname} handleLogout={handleLogout} />
     </>
   );
 }
