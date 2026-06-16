@@ -55,7 +55,7 @@ export default function DashboardPage() {
       <div className="mb-6 flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold tracking-tight text-white">Dashboard</h1>
-          <p className="mt-1 text-sm text-zinc-500">Welcome back — here's how CA Fashion is performing.</p>
+          <p className="mt-1 text-sm text-zinc-500">Welcome back — here's how Retake CRM is performing.</p>
         </div>
         <Link href="/orders" className="btn-primary">
           <Package className="h-4 w-4" /> New Order

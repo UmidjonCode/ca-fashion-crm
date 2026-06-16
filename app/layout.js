@@ -9,7 +9,7 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata = {
-  title: 'CA Fashion — Wholesale CRM',
+  title: 'Retake CRM — Wholesale CRM',
   description:
     'CRM for managing wholesale clothing customers, orders, and products.',
 };

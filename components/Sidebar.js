@@ -130,7 +130,7 @@ function TopBar({ pathname, onOpenMobile }) {
 
           <div className="flex items-center gap-2 text-sm">
             <Link href="/" className="font-bold text-zinc-200 hover:text-teal-400 transition-colors">
-              CA Fashion
+              Retake CRM
             </Link>
             <ChevronRight className="h-3.5 w-3.5 text-zinc-600" />
             <span className="font-medium text-zinc-500">{pageName}</span>
@@ -183,7 +183,7 @@ function MobileDrawer({ open, onClose, pathname, handleLogout }) {
                     <Shirt className="h-4.5 w-4.5 text-charcoal" />
                   </div>
                   <div>
-                    <p className="text-sm font-bold text-zinc-200">CA Fashion</p>
+                    <p className="text-sm font-bold text-zinc-200">Retake CRM</p>
                     <p className="text-[11px] text-zinc-600">Wholesale CRM</p>
                   </div>
                 </div>
