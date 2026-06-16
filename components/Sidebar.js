@@ -17,7 +17,7 @@ import {
 } from 'lucide-react';
 
 const navItems = [
-  { name: 'Dashboard', href: '/', icon: LayoutDashboard },
+  { name: 'Remodul', href: '/', icon: LayoutDashboard },
   { name: 'Customers', href: '/customers', icon: Users },
   { name: 'Orders', href: '/orders', icon: ShoppingCart },
   { name: 'Products', href: '/products', icon: Package },
@@ -31,7 +31,7 @@ function getCurrentPageName(pathname) {
   const item = navItems.find((n) =>
     n.href === '/' ? pathname === '/' : pathname.startsWith(n.href)
   );
-  return item?.name || 'Dashboard';
+  return item?.name || 'Remodul';
 }
 
 /* ─── Icon Rail (Desktop) ─── */
